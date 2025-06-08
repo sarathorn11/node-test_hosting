@@ -1,31 +1,30 @@
-
 {
   "development": {
     "username": "root",
-    "password": null,
+    "password": "your_mysql_root_password", 
     "database": "test_hosting_stock_management_db",
     "host": "127.0.0.1",
     "dialect": "mysql",
     "logging": false,
-    "port": "4306"
-
+    "port": 4306 
   },
   "test": {
-    "username": "root",
-    "password": null,
-    "database": "test_hosting_stock_management_db",
+    "username": "test_user",
+    "password": "test_password",
+    "database": "test_hosting_stock_management_db_test",
     "host": "127.0.0.1",
     "dialect": "mysql",
-    "port": "4306"
+    "port": 4306
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "test_hosting_stock_management_db",
-    "host": "127.0.0.1",
+    "use_env_variable": "DATABASE_URL",
     "dialect": "mysql",
-    "port": "4306"
+    "logging": false,
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    }
   }
-} 
-
-
+}
