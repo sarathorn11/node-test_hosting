@@ -1,7 +1,6 @@
-import { readdirSync } from 'fs'
+import { readdirSync, readFileSync } from 'fs'
 import path from 'path'
 import { Sequelize, DataTypes } from 'sequelize'
-import config from '../../config/config.json' assert { type: 'json' }
 import { fileURLToPath } from 'url'
 import associate from './associations.js'
 
@@ -11,6 +10,10 @@ const __dirname = path.dirname(__filename)
 const basename = path.basename(__filename)
 const db = {}
 const env = process.env.NODE_ENV || 'development'
+
+// Fixed JSON import using readFileSync
+const configPath = new URL('../../config/config.json', import.meta.url)
+const config = JSON.parse(readFileSync(configPath, 'utf-8'))
 const dbConfig = config[env]
 
 const sequelize = new Sequelize(
@@ -18,7 +21,10 @@ const sequelize = new Sequelize(
   dbConfig.username,
   dbConfig.password,
   {
-    ...dbConfig,
+    host: dbConfig.host,
+    port: dbConfig.port,
+    dialect: dbConfig.dialect,
+    logging: env === 'development' ? console.log : false,
     define: {
       ...dbConfig.model,
     },
@@ -40,10 +46,10 @@ const importModels = async () => {
       })
     )
   } catch (error) {
-    console.error(error)
+    console.error('Error importing models:', error)
   }
+  
   associate(db)
-
   db.sequelize = sequelize
 }
 
