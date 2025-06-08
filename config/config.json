@@ -1,0 +1,31 @@
+
+{
+  "development": {
+    "username": "root",
+    "password": null,
+    "database": "test_hosting_stock_management_db",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "logging": false,
+    "port": "4306"
+
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "test_hosting_stock_management_db",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "port": "4306"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "test_hosting_stock_management_db",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "port": "4306"
+  }
+}
+
+
