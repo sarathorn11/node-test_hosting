@@ -10,49 +10,18 @@ const basename = path.basename(__filename);
 const db = {};
 const env = process.env.NODE_ENV || 'development';
 
-// Database configuration - handles both local and production
-let dbConfig;
-
+// Database configuration
+let sequelize;
 if (env === 'production') {
-  // Production configuration using environment variables
-  dbConfig = {
-    database: process.env.DB_NAME,
-    username: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT || '3306', // Default MySQL port
+  // Production configuration (Render)
+  sequelize = new Sequelize(process.env.DATABASE_URL, {
     dialect: 'mysql',
+    logging: false,
     dialectOptions: {
       ssl: {
         require: true,
         rejectUnauthorized: false
       }
-    },
-    logging: false
-  };
-} else {
-  // Local development configuration
-  const configPath = new URL('../../config/config.json', import.meta.url);
-  const config = JSON.parse(readFileSync(configPath, 'utf-8'));
-  dbConfig = config[env];
-}
-
-// Initialize Sequelize
-const sequelize = new Sequelize(
-  dbConfig.database,
-  dbConfig.username,
-  dbConfig.password,
-  {
-    host: dbConfig.host,
-    port: dbConfig.port,
-    dialect: dbConfig.dialect,
-    logging: env === 'development' ? console.log : false,
-    dialectOptions: dbConfig.dialectOptions,
-    define: {
-      ...(dbConfig.model || {}),
-      timestamps: true, // Recommended to enable timestamps
-      paranoid: true, // Optional: enables soft deletes
-      underscored: true // Optional: uses snake_case for column names
     },
     pool: {
       max: 5,
@@ -60,16 +29,36 @@ const sequelize = new Sequelize(
       acquire: 30000,
       idle: 10000
     }
-  }
-);
+  });
+} else {
+  // Local development configuration
+  const configPath = new URL('../../config/config.json', import.meta.url);
+  const config = JSON.parse(readFileSync(configPath, 'utf-8'));
+  const dbConfig = config[env];
+  
+  sequelize = new Sequelize(
+    dbConfig.database,
+    dbConfig.username,
+    dbConfig.password,
+    {
+      host: dbConfig.host,
+      port: dbConfig.port,
+      dialect: dbConfig.dialect,
+      logging: console.log,
+      define: {
+        ...(dbConfig.model || {}),
+      }
+    }
+  );
+}
 
-// Test the database connection
+// Test database connection
 try {
   await sequelize.authenticate();
-  console.log('Database connection has been established successfully.');
+  console.log('Database connection established successfully.');
 } catch (error) {
   console.error('Unable to connect to the database:', error);
-  process.exit(1); // Exit if database connection fails
+  process.exit(1);
 }
 
 const importModels = async () => {
@@ -91,14 +80,7 @@ const importModels = async () => {
     console.error('Error importing models:', error);
   }
   
-  // Setup model associations
   associate(db);
-  
-  // Sync models with database (careful in production)
-  if (env === 'development') {
-    await sequelize.sync({ alter: true }); // Use { force: true } to drop and recreate tables
-  }
-  
   db.sequelize = sequelize;
   db.Sequelize = Sequelize;
 };
