@@ -1,20 +1,21 @@
 {
   "development": {
-    "username": "root",
-    "password": "your_mysql_root_password", 
-    "database": "test_hosting_stock_management_db",
-    "host": "127.0.0.1",
+     "username": "if0_39192088",
+    "password": "YOUR_PASSWORD_HERE",
+    "database": "if0_39192088_smsdb",
+    "host": "sql300.infinityfree.com",
     "dialect": "mysql",
-    "logging": false,
-    "port": 4306 
+    "port": 3306,
+    "logging": false
   },
   "test": {
-    "username": "test_user",
-    "password": "test_password",
-    "database": "test_hosting_stock_management_db_test",
-    "host": "127.0.0.1",
+     "username": "if0_39192088",
+    "password": "YOUR_PASSWORD_HERE",
+    "database": "if0_39192088_smsdb",
+    "host": "sql300.infinityfree.com",
     "dialect": "mysql",
-    "port": 4306
+    "port": 3306,
+    "logging": false
   },
   "production": {
     "username": "if0_39192088",
