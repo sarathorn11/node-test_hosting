@@ -1,40 +1,22 @@
 {
   "development": {
-    "username": "if0_39192088",
-    "password": "sarathorn",
-    "database": "if0_39192088_smsdb",
-    "host": "sql300.infinityfree.com", 
-    "dialect": "mysql",
-    "port": 3306,
-    "logging": false,
-    "dialectOptions": {
-      "connectTimeout": 60000 
-    }
-  },
-  "test": {
-     "username": "if0_39192088",
-    "password": "sarathorn",
-    "database": "if0_39192088_smsdb",
-    "host": "sql300.infinityfree.com", 
-    "dialect": "mysql",
-    "port": 3306,
-    "logging": false,
-    "dialectOptions": {
-      "connectTimeout": 60000 
-    }
+    "username": "postgres",
+    "password": "postgres",
+    "database": "smsdb_dev",
+    "host": "localhost",
+    "dialect": "postgres",
+    "port": 5432,
+    "logging": true
   },
   "production": {
-     "username": "if0_39192088",
-    "password": "sarathorn",
-    "database": "if0_39192088_smsdb",
-    "host": "sql300.infinityfree.com", 
-    "dialect": "mysql",
-    "port": 3306,
+    "use_env_variable": "DATABASE_URL",
+    "dialect": "postgres",
     "logging": false,
     "dialectOptions": {
-      "connectTimeout": 60000 
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
     }
   }
-
-  
 }
