@@ -3,7 +3,6 @@
      "username": "if0_39192088",
     "password": "sarathorn",
     "database": "if0_39192088_smsdb",
-    "host": "sql300.infinityfree.com",
     "dialect": "mysql",
     "port": 3306,
     "logging": false
@@ -12,7 +11,6 @@
      "username": "if0_39192088",
     "password": "sarathorn",
     "database": "if0_39192088_smsdb",
-    "host": "sql300.infinityfree.com",
     "dialect": "mysql",
     "port": 3306,
     "logging": false
@@ -21,7 +19,6 @@
     "username": "if0_39192088",
     "password": "sarathorn",
     "database": "if0_39192088_smsdb",
-    "host": "sql300.infinityfree.com",
     "dialect": "mysql",
     "port": 3306,
     "logging": false
