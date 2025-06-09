@@ -17,14 +17,14 @@
     "port": 4306
   },
   "production": {
-    "use_env_variable": "DATABASE_URL",
+    "username": "if0_39192088",
+    "password": "YOUR_PASSWORD_HERE",
+    "database": "if0_39192088_smsdb",
+    "host": "sql300.infinityfree.com",
     "dialect": "mysql",
-    "logging": false,
-    "dialectOptions": {
-      "ssl": {
-        "require": true,
-        "rejectUnauthorized": false
-      }
-    }
+    "port": 3306,
+    "logging": false
   }
+
+  
 }
